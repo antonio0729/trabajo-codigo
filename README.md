@@ -27,8 +27,8 @@ productos = [
 ]
 
 clientes = [
-    Cliente("Bibiana", "Bibiana@gmail.com", "carrera 21 #39-31 barrio san jose,barranquilla"),
-    Cliente("Nicolls", "nicolls@gmail.com", "cra 51a #18-44 barrio costa hermosa,barranquilla")
+    Cliente("Bibiana", "Bibiana@gmail.com", "carrera 21 #38-31 barrio san jose,barranquilla"),
+    Cliente("Nicolls", "nicolls@gmail.com", "cra 51 #18-44 barrio costa hermosa,barranquilla")
 ]
 
 pedidos = [
