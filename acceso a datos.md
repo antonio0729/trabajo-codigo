@@ -1,0 +1,112 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/antonio0729/trabajo-codigo/blob/main/acceso%20a%20datos.md\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "\n",
+        "class Tarea:\n",
+        "    def __init__(self, descripcion):\n",
+        "        self.descripcion = descripcion\n",
+        "        self.completada = False\n",
+        "\n",
+        "def agregar_tarea(nombre_archivo):\n",
+        "    descripcion = input(\"Ingrese la asignatura de la tarea: \")\n",
+        "    tarea = Tarea(descripcion)\n",
+        "    try:\n",
+        "        with open(nombre_archivo, \"a\") as archivo:\n",
+        "            archivo.write(f\"{tarea.descripcion}\\n\")\n",
+        "        print(\"Tarea agregada exitosamente.\")\n",
+        "    except FileNotFoundError:\n",
+        "        print(f\"El archivo '{nombre_archivo}' no se encontró.\")\n",
+        "    except Exception as e:\n",
+        "        print(f\"Ocurrió un error al escribir en el archivo: {e}\")\n",
+        "\n",
+        "def mostrar_tareas(nombre_archivo):\n",
+        "    try:\n",
+        "        with open(nombre_archivo, \"r\") as archivo:\n",
+        "            tareas = archivo.readlines()\n",
+        "            if tareas:\n",
+        "                print(\"Tareas:\")\n",
+        "                for i, tarea in enumerate(tareas):\n",
+        "                    print(f\"{i+1}. {tarea.strip()}\")\n",
+        "            else:\n",
+        "                print(\"No hay tareas guardadas.\")\n",
+        "    except FileNotFoundError:\n",
+        "        print(f\"El archivo '{nombre_archivo}' no se encontró.\")\n",
+        "    except Exception as e:\n",
+        "        print(f\"Ocurrió un error al leer el archivo: {e}\")\n",
+        "\n",
+        "def marcar_tarea_completada(nombre_archivo):\n",
+        "    mostrar_tareas(nombre_archivo)\n",
+        "    try:\n",
+        "        indice_tarea = int(input(\"Ingrese el número de la tarea a completar: \")) - 1\n",
+        "        with open(nombre_archivo, \"r\") as archivo:\n",
+        "            tareas = archivo.readlines()\n",
+        "        if 0 <= indice_tarea < len(tareas):\n",
+        "            tarea_eliminada = tareas.pop(indice_tarea)\n",
+        "            with open(nombre_archivo, \"w\") as archivo:\n",
+        "                archivo.writelines(tareas)\n",
+        "            print(f\"Tarea '{tarea_eliminada.strip()}' completada y eliminada.\")\n",
+        "        else:\n",
+        "            print(\"Número de tarea inválido.\")\n",
+        "    except ValueError:\n",
+        "        print(\"Entrada inválida. Ingrese un número.\")\n",
+        "    except FileNotFoundError:\n",
+        "        print(f\"El archivo '{nombre_archivo}' no se encontró.\")\n",
+        "    except Exception as e:\n",
+        "        print(f\"Ocurrió un error al procesar la tarea: {e}\")\n",
+        "\n",
+        "# Ejemplo de uso (usando \"tareas.txt\" como nombre de archivo):\n",
+        "nombre_archivo = \"tareas.txt\"\n",
+        "\n",
+        "while True:\n",
+        "    print(\"\\nMenú:\")\n",
+        "    print(\"1. Agregar tarea\")\n",
+        "    print(\"2. Mostrar tareas\")\n",
+        "    print(\"3. Marcar tarea como completada\")\n",
+        "    print(\"4. Salir\")\n",
+        "\n",
+        "    opcion = input(\"Seleccione una opción: \")\n",
+        "\n",
+        "    if opcion == '1':\n",
+        "        agregar_tarea(nombre_archivo)\n",
+        "    elif opcion == '2':\n",
+        "        mostrar_tareas(nombre_archivo)\n",
+        "    elif opcion == '3':\n",
+        "        marcar_tarea_completada(nombre_archivo)\n",
+        "    elif opcion == '4':\n",
+        "        break\n",
+        "    else:\n",
+        "        print(\"Opción inválida. Intente de nuevo.\")\n"
+      ],
+      "metadata": {
+        "id": "8Eur6lHjnduK"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
